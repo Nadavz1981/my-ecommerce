@@ -1,0 +1,39 @@
+.stylish-title {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    color: #007bff;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.stylish-card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stylish-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.product-image {
+    height: 200px;
+    width: 100%;
+    object-fit: contain; /* שומר על יחס הפרופורציות של התמונה */
+    border-bottom: 3px solid #007bff;
+    background-color: #f8f9fa; /* צבע רקע במקרה של תמונות קטנות */
+    padding: 10px; /* ריווח פנימי לשיפור המראה */
+}
+
+
+button {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+body {
+    background-color: #f8f9fa;
+}

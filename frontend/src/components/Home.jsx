@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { fetchProducts } from '../api';
+import './Home.css';
 
 const Home = () => {
     const [products, setProducts] = useState([]);
@@ -16,22 +17,28 @@ const Home = () => {
 
     return (
         <Container>
-            <h1 className="my-4">Welcome to Our Store</h1>
+            <h1 className="my-4 text-center stylish-title">Welcome to Our Store</h1>
             <Row>
                 {products.map((product) => (
                     <Col key={product.id} md={4} className="mb-4">
-                        <div className="card">
-                            <img
+                        <Card className="h-100 stylish-card shadow-lg">
+                            <Card.Img
+                                variant="top"
                                 src={product.image}
                                 alt={product.title}
-                                className="card-img-top"
-                                style={{ height: '200px', objectFit: 'contain' }}
+                                className="product-image"
                             />
-                            <div className="card-body">
-                                <h5 className="card-title">{product.title}</h5>
-                                <p className="card-text">${product.price}</p>
-                            </div>
-                        </div>
+
+                            <Card.Body>
+                                <Card.Title className="text-truncate stylish-title" title={product.title}>
+                                    {product.title}
+                                </Card.Title>
+                                <Card.Text className="text-muted">${product.price}</Card.Text>
+                                <Button variant="success" className="w-100">
+                                    Add to Cart
+                                </Button>
+                            </Card.Body>
+                        </Card>
                     </Col>
                 ))}
             </Row>
