@@ -1,35 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem, removeItem } from './redux/cartSlice';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+    const dispatch = useDispatch();
+    const items = useSelector((state) => state.cart.items);
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    const addItemToCart = () => {
+        dispatch(addItem({ id: 1, name: 'Test Product' }));
+    };
 
-export default App
+    const removeItemFromCart = () => {
+        dispatch(removeItem({ id: 1 }));
+    };
+
+    return (
+        <div className="container">
+            <h1>Redux Test</h1>
+            <button onClick={addItemToCart} className="btn btn-primary">
+                Add Item
+            </button>
+            <button onClick={removeItemFromCart} className="btn btn-danger">
+                Remove Item
+            </button>
+            <ul>
+                {items.map((item) => (
+                    <li key={item.id}>{item.name}</li>
+                ))}
+            </ul>
+        </div>
+    );
+};
+
+export default App;
