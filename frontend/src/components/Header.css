@@ -1,0 +1,19 @@
+.navbar {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    color: #007bff !important;
+}
+
+.nav-link {
+    color: #333 !important;
+    margin: 0 10px;
+}
+
+.nav-link:hover {
+    color: #007bff !important;
+}
