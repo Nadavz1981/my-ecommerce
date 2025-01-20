@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { fetchProducts } from '../api';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../redux/cartSlice';
+import { addToWishlist } from '../redux/wishlistSlice';
 import './Home.css';
 
 const Home = () => {
@@ -24,12 +25,21 @@ const Home = () => {
                 id: product.id,
                 title: product.title,
                 price: product.price,
-                image: product.image, // הוסף את שדה התמונה
+                image: product.image,
             })
         );
     };
 
-
+    const addItemToWishlist = (product) => {
+        dispatch(
+            addToWishlist({
+                id: product.id,
+                title: product.title,
+                price: product.price,
+                image: product.image,
+            })
+        );
+    };
 
     return (
         <Container>
@@ -52,12 +62,20 @@ const Home = () => {
                                     {product.title}
                                 </Card.Title>
                                 <Card.Text>${product.price}</Card.Text>
-                                <Button
-                                    variant="primary"
-                                    onClick={() => addItemToCart(product)}
-                                >
-                                    Add to Cart
-                                </Button>
+                                <div className="d-flex justify-content-between">
+                                    <Button
+                                        variant="primary"
+                                        onClick={() => addItemToCart(product)}
+                                    >
+                                        Add to Cart
+                                    </Button>
+                                    <Button
+                                        variant="warning"
+                                        onClick={() => addItemToWishlist(product)}
+                                    >
+                                        Add to Wishlist
+                                    </Button>
+                                </div>
                             </Card.Body>
                         </Card>
                     </Col>

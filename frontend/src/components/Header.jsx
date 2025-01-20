@@ -20,6 +20,9 @@ const Header = () => {
                     <Nav className="ms-auto">
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="/categories">Categories</Nav.Link>
+                        <Nav.Link as={Link} to="/wishlist">
+                            Wishlist
+                        </Nav.Link>
                         <Nav.Link as={Link} to="/checkout">
                             Cart <Badge bg="secondary">{cartItemsCount}</Badge>
                         </Nav.Link>
