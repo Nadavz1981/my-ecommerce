@@ -1,19 +1,27 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeItem } from '../redux/cartSlice';
+import { removeItem, increaseQuantity, decreaseQuantity } from '../redux/cartSlice';
 import { Container, Button, ListGroup, Image } from 'react-bootstrap';
 
 const Checkout = () => {
-    // שליפת הפריטים מהסל באמצעות Redux
     const cartItems = useSelector((state) => state.cart.items);
     const dispatch = useDispatch();
 
-    // חישוב המחיר הכולל של המוצרים בסל
-    const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
+    const totalPrice = cartItems.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+    );
 
-    // פונקציה להסרת פריט מהסל
     const removeItemFromCart = (id) => {
         dispatch(removeItem({ id }));
+    };
+
+    const increaseItemQuantity = (id) => {
+        dispatch(increaseQuantity({ id }));
+    };
+
+    const decreaseItemQuantity = (id) => {
+        dispatch(decreaseQuantity({ id }));
     };
 
     return (
@@ -31,22 +39,46 @@ const Checkout = () => {
                             >
                                 <div className="d-flex align-items-center">
                                     <Image
-                                        src={item.image || 'https://via.placeholder.com/50'}
+                                        src={item.image}
                                         alt={item.title}
                                         rounded
-                                        style={{ width: '50px', height: '50px', marginRight: '15px' }}
+                                        style={{
+                                            width: '50px',
+                                            height: '50px',
+                                            marginRight: '15px',
+                                        }}
                                     />
                                     <div>
                                         <h5 className="mb-0">{item.title}</h5>
-                                        <p className="mb-0 text-muted">${item.price}</p>
+                                        <p className="mb-0 text-muted">
+                                            ${item.price} x {item.quantity}
+                                        </p>
                                     </div>
                                 </div>
-                                <Button
-                                    variant="danger"
-                                    onClick={() => removeItemFromCart(item.id)}
-                                >
-                                    Remove
-                                </Button>
+                                <div>
+                                    <Button
+                                        variant="outline-primary"
+                                        size="sm"
+                                        onClick={() => increaseItemQuantity(item.id)}
+                                    >
+                                        +
+                                    </Button>
+                                    <Button
+                                        variant="outline-secondary"
+                                        size="sm"
+                                        onClick={() => decreaseItemQuantity(item.id)}
+                                        className="mx-2"
+                                    >
+                                        -
+                                    </Button>
+                                    <Button
+                                        variant="danger"
+                                        size="sm"
+                                        onClick={() => removeItemFromCart(item.id)}
+                                    >
+                                        Remove
+                                    </Button>
+                                </div>
                             </ListGroup.Item>
                         ))}
                     </ListGroup>
