@@ -1,30 +1,50 @@
 import React from 'react';
 import { Navbar, Nav, Container, Badge } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import './Header.css';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 const Header = () => {
-    // שליפת מספר הפריטים מסל הקניות
-    const cartItemsCount = useSelector((state) =>
-        state.cart.items.reduce((total, item) => total + 1, 0)
+    const wishlistCount = useSelector((state) => state.wishlist.items.length);
+    const cartCount = useSelector((state) =>
+        state.cart.items.reduce((total, item) => total + item.quantity, 0)
     );
 
     return (
-        <Navbar bg="light" expand="lg" className="mb-4 shadow-sm">
+        <Navbar bg="dark" variant="dark" expand="lg">
             <Container>
-                <Navbar.Brand href="/">My Store</Navbar.Brand>
+                <Navbar.Brand as={Link} to="/">My Store</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto">
-                        <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/categories">Categories</Nav.Link>
-                        <Nav.Link as={Link} to="/wishlist">
-                            Wishlist
+                        {/* Wishlist */}
+                        <Nav.Link as={Link} to="/wishlist" className="position-relative">
+                            Wishlist ❤️
+                            {wishlistCount > 0 && (
+                                <Badge
+                                    bg="danger"
+                                    pill
+                                    className="position-absolute top-0 start-100 translate-middle"
+                                    style={{ fontSize: '0.8rem' }}
+                                >
+                                    {wishlistCount}
+                                </Badge>
+                            )}
                         </Nav.Link>
-                        <Nav.Link as={Link} to="/checkout">
-                            Cart <Badge bg="secondary">{cartItemsCount}</Badge>
+
+                        {/* Cart */}
+                        <Nav.Link as={Link} to="/checkout" className="position-relative">
+                            Cart 🛒
+                            {cartCount > 0 && (
+                                <Badge
+                                    bg="warning"
+                                    pill
+                                    className="position-absolute top-0 start-100 translate-middle"
+                                    style={{ fontSize: '0.8rem', color: 'black' }}
+                                >
+                                    {cartCount}
+                                </Badge>
+                            )}
                         </Nav.Link>
 
                     </Nav>
